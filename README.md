@@ -7,32 +7,32 @@ It is designed with **high availability, security, and scalability** in mind —
 ---
 
 ##  Architecture Overview
-              Internet
-                    │
-            ┌───────────────┐
-            │ Internet GW   │
-            └──────┬────────┘
-                   │
-    ┌──────────────┼──────────────┐
-    │                              │
 
-🌐  Public Subnet AZ1 🌐 Public Subnet AZ2
-(ELB, NAT GW) (ELB, NAT GW)
-│ │
-└───────┬──────────────┬───────┘
-│ │
-🔒 Private Subnet AZ1 🔒 Private Subnet AZ2
-(EKS Nodes) (EKS Nodes)
-│ │
-└───────┬──────────────┘
-│
-☸️ EKS Cluster
-│
-┌───────────────┼────────────────┐
-│ │ │
-Pods Services EBS Volumes
-│
-EBS CSI Driver
+                           Internet
+                      |
+              +----------------+
+              |  Internet GW   |
+              +--------+-------+
+                       |
+        +--------------+--------------+
+        |                             |
+   Public Subnet AZ1           Public Subnet AZ2
+   (ELB, NAT GW)               (ELB, NAT GW)
+        |                             |
+        +--------+-----------+--------+
+                 |           |
+        Private Subnet AZ1   Private Subnet AZ2
+            (EKS Nodes)          (EKS Nodes)
+                 |                   |
+                 +--------+----------+
+                          |
+                      EKS Cluster
+                          |
+        +-----------------+------------------+
+        |                 |                  |
+      Pods            Services         EBS Volumes
+                                              |
+                                       EBS CSI Driver
 
 
 
