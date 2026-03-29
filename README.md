@@ -77,7 +77,7 @@ It is designed with **high availability, security, and scalability** in mind —
 
 ---
 
-### ⚖️ Load Balancing
+### Load Balancing
 - Public subnets tagged for:
   - Internet-facing Load Balancers
 - Private subnets tagged for:
