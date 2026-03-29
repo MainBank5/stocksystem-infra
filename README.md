@@ -16,8 +16,8 @@ It is designed with **high availability, security, and scalability** in mind —
                        |
         +--------------+--------------+
         |                             |
-   Public Subnet AZ1           Public Subnet AZ2
-   (ELB, NAT GW)               (ELB, NAT GW)
+    Public Subnet AZ1           Public Subnet AZ2
+    (ELB, NAT GW)               (ELB, NAT GW)
         |                             |
         +--------+-----------+--------+
                  |           |
