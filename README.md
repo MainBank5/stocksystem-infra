@@ -7,7 +7,7 @@ It is designed with **high availability, security, and scalability** in mind —
 ---
 
 ##  Architecture Overview
-Internet
+              Internet
                     │
             ┌───────────────┐
             │ Internet GW   │
@@ -16,7 +16,7 @@ Internet
     ┌──────────────┼──────────────┐
     │                              │
 
-🌐 Public Subnet AZ1 🌐 Public Subnet AZ2
+🌐  Public Subnet AZ1 🌐 Public Subnet AZ2
 (ELB, NAT GW) (ELB, NAT GW)
 │ │
 └───────┬──────────────┬───────┘
@@ -114,5 +114,10 @@ EBS CSI Driver
 - Terraform enforces consistency across complex infrastructure
 
 ---
+
+
+
+
+
 
 
