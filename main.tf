@@ -484,3 +484,23 @@ resource "aws_iam_role_policy_attachment" "github_actions_ecr" {
   role       = aws_iam_role.github_actions_ecr.name
   policy_arn = aws_iam_policy.ecr_push.arn
 }
+
+
+
+resource "aws_ecr_repository" "services" {
+  for_each = toset([
+    "api-gateway",
+    "auth-service",
+    "availability-service",
+    "orders-service",
+    "payment-service",
+    "email-service"
+  ])
+
+  name                 = each.value
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+}
