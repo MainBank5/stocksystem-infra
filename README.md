@@ -115,8 +115,4 @@ EBS CSI Driver
 
 ---
 
-## 🚀 Getting Started
 
-### 1. Initialize Terraform
-```bash
-terraform init
