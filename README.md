@@ -1,6 +1,6 @@
-# Production-Grade AWS EKS Infrastructure (Terraform)
+#SIMPLE AWS EKS Infrastructure (Terraform)
 
-This repository contains a **production-ready AWS EKS architecture** built using Terraform.
+This repository contains a **mock AWS EKS architecture** built using Terraform.
 
 It is designed with **high availability, security, and scalability** in mind — following real-world infrastructure patterns, not just a demo setup.
 
