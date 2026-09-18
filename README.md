@@ -100,10 +100,6 @@ It is designed with **high availability, security, and scalability** in mind —
 - Auto-scaling node group
 - Kubernetes-native scaling support
 
-###  Infrastructure as Code
-- Fully managed via Terraform
-- Reproducible and version-controlled
-
 ---
 
 ##  Key Learnings
