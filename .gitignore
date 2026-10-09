@@ -1,6 +1,22 @@
+# Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
 crash.log
+
+# Terraform sensitive vars
 *.tfvars
 *.tfvars.json
+
+# Helm secrets / values
+*.secrets.yaml
+*secret*.yaml
+my-values.yaml
+
+# Optional: keep safe template instead
+!**/values.example.yaml
+
+# OS / misc
+.DS_Store
+node_modules/
+
