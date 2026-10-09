@@ -1,0 +1,38 @@
+replicaCount: 2
+
+image:
+  repository: 996549485813.dkr.ecr.us-east-1.amazonaws.com/orders-service
+  pullPolicy: IfNotPresent
+  tag: "" # Injected by GitHub Actions
+
+service:
+  type: ClusterIP
+  port: 3000
+
+# Service-Specific Connections
+env:
+  - name: DB_HOST
+    value: "orders-db-service"
+  - name: RABBITMQ_URL
+    value: "amqp://rabbitmq:5672"
+  - name: AVAILABILITY_SERVICE_URL
+    value: "http://availability-service:3000"
+  - name: PAYMENT_SERVICE_URL
+    value: "http://payment-service:3000"
+
+# Sensitive Credentials
+envFrom:
+  - secretRef:
+      name: orders-service-secrets
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 150m
+    memory: 256Mi
+
+# Prevents Helm Nil Pointer Errors
+ingress:
+  enabled: false

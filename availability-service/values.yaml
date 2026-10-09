@@ -1,0 +1,75 @@
+# Default values for availability-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+#
+
+replicaCount: 2
+
+image:
+  repository: 996549485813.dkr.ecr.us-east-1.amazonaws.com/availability-service
+  pullPolicy: IfNotPresent
+  # Overridden by GitHub Actions (e.g., ${{ github.sha }})
+  tag: ""
+
+service:
+  type: ClusterIP
+  port: 3000
+
+# Environment Variables for Availability Service
+# These map to your NestJS process.env
+env:
+  - name: DB_TYPE
+    value: "postgres"
+  - name: DB_HOST
+    value: "availability-db-service"
+  - name: DB_PORT
+    value: "5432"
+  - name: RABBITMQ_URL
+    value: "amqp://rabbitmq:5672"
+  - name: STOCK_RESERVATION_TIMEOUT
+    value: "300000" # 5 minutes in ms
+
+# Inject sensitive data from a K8s Secret
+# Create this with: kubectl create secret generic availability-secrets --from-literal=DB_PASSWORD=xxxx
+envFrom:
+  - secretRef:
+      name: availability-secrets
+
+# Health Checks
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 45 # Giving it more time to connect to DB
+  periodSeconds: 10
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 5
+
+# Resource Management (Standardized for your EKS nodes)
+resources:
+  limits:
+    cpu: 300m
+    memory: 512Mi
+  requests:
+    cpu: 150m
+    memory: 256Mi
+
+# Prevents the "nil pointer" error in the ingress.yaml template
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 80
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

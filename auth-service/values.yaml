@@ -1,0 +1,54 @@
+# Default values for auth-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# This will set the replicaset count more information can be found here: https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+#
+replicaCount: 2
+
+image:
+  repository: 996549485813.dkr.ecr.us-east-1.amazonaws.com/auth-service
+  pullPolicy: IfNotPresent
+  tag: "" # Overridden by CI/CD
+
+service:
+  type: ClusterIP
+  port: 3000
+
+# Auth Service Specific Envs
+env:
+  - name: DATABASE_HOST
+    value: "postgres-service"
+  - name: JWT_EXPIRATION
+    value: "3600"
+  - name: RABBITMQ_URL
+    value: "amqp://rabbitmq:5672"
+
+# Use this for sensitive data like DB_PASSWORD or JWT_SECRET
+envFrom:
+  - secretRef:
+      name: auth-service-secrets
+
+#  health check)
+livenessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 30
+readinessProbe:
+  httpGet:
+    path: /health
+    port: http
+  initialDelaySeconds: 5
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# REQUIRED: Prevents Helm Nil Pointer Errors
+ingress:
+  enabled: false
