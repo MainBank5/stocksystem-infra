@@ -9,12 +9,12 @@ crash.log
 *.tfvars.json
 
 # Helm secrets / values
-<<<<<<< HEAD
+
 *.secrets.yaml
 *secret*.yaml
 my-values.yaml
-=======
->>>>>>> b5a39d5 (Add microservices Helm charts and clean infrastructure rules)
+
+
 
 # Optional: keep safe template instead
 !**/values.example.yaml
@@ -23,8 +23,6 @@ my-values.yaml
 .DS_Store
 node_modules/
 
-<<<<<<< HEAD
-=======
 # Ignore local custom values files that contain secrets
 *.secrets.yaml
 *secret*.yaml
@@ -34,4 +32,4 @@ my-values.yaml
 .terraform/
 *.tfstate
 *.tfstate.backup
->>>>>>> b5a39d5 (Add microservices Helm charts and clean infrastructure rules)
+
